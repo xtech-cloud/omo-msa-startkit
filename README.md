@@ -38,7 +38,7 @@ Install Protobuf
 ~# ldconfig
 ```
 
-Install protoc-ge-go
+Install protoc-gen-go
 ```bash
 ~# export GOPROXY=https://mirrors.aliyun.com/goproxy/
 ~# go get -u github.com/golang/protobuf/protoc-gen-go
