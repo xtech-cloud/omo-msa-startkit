@@ -303,7 +303,9 @@ func init() {
 	proto.RegisterType((*Pong)(nil), "omo.msa.startkit.Pong")
 }
 
-func init() { proto.RegisterFile("proto/msa/msa.proto", fileDescriptor_b6dfd6259aa7c5d0) }
+func init() {
+	proto.RegisterFile("proto/msa/msa.proto", fileDescriptor_b6dfd6259aa7c5d0)
+}
 
 var fileDescriptor_b6dfd6259aa7c5d0 = []byte{
 	// 269 bytes of a gzipped FileDescriptorProto

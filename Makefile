@@ -10,7 +10,7 @@ build: proto
 
 .PHONY: test
 test:
-	go test -v 
+	micro call omo.msa.startkit StartKit.Call '{"name":"John"}'
 
 .PHONY: docker
 docker:
