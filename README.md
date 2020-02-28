@@ -61,6 +61,7 @@ Install Micro
 append follow code in main.go
 ```go
 _ "github.com/micro/go-plugins/registry/consul/v2"
+_ "github.com/micro/go-plugins/registry/kubernetes/v2"
 ```
 
 ```

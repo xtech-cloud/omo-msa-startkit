@@ -5,6 +5,7 @@ import (
 	"omo-msa-startkit/handler"
 
 	_ "github.com/micro/go-plugins/registry/consul/v2"
+	_ "github.com/micro/go-plugins/registry/kubernetes/v2"
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/util/log"

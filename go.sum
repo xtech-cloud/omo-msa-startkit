@@ -294,10 +294,14 @@ github.com/micro/go-micro v1.18.0/go.mod h1:klwUJL1gkdY1MHFyz+fFJXn52dKcty4hoe95
 github.com/micro/go-micro/v2 v2.1.2 h1:r2pu9OckjG+vHD1Ttpwbsj9UnYAHnEiYa3ND1ejL6Do=
 github.com/micro/go-micro/v2 v2.1.2/go.mod h1:6RewFTFMI5H5CbuQymu4eS0cFtqYsdGFruMflWT36IQ=
 github.com/micro/go-plugins v1.5.1 h1:swcFD7ynCTUo98APqIEIbPu2XMd6yVGTnI8PqdnCwOQ=
+github.com/micro/go-plugins v2.0.1+incompatible h1:WYNrIeBhv+84ASevN22Z6ijGJf8bfMsdYUuuh9C8JOc=
 github.com/micro/go-plugins/config/source/consul/v2 v2.0.3 h1:hUzNsYrDmZ4i4ua7y/vhUxlbrW39hpGIDVVS4cWgR88=
 github.com/micro/go-plugins/config/source/consul/v2 v2.0.3/go.mod h1:nTuPTtkEpHVufMbiQFnO7enKwkNt6lI8AebeohBcawo=
 github.com/micro/go-plugins/registry/consul/v2 v2.0.3 h1:gdiPbrMLS7kRbUx0/Mk5bsWjVBB6k35zAAbySiO0mgQ=
 github.com/micro/go-plugins/registry/consul/v2 v2.0.3/go.mod h1:ZffsiTaaplO3k0PkaZS5EQFg5rDLiJvYEuiob0g9jFU=
+github.com/micro/go-plugins/registry/kubernetes v0.0.0-20200119172437-4fe21aa238fd h1:FrlK4kIbFDRyROigjF2Uhn6kN2zIzKNQcRucTrq+Yfg=
+github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3 h1:HgEZ+yjB0dr1kdHUdA9vQUyywS0YzQof4MQ6YHoSV9Q=
+github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3/go.mod h1:YTQuE9TH/r5+CJBtKmCVdUQBaFGOTpqc6S4ETu1mP7A=
 github.com/micro/mdns v0.3.0 h1:bYycYe+98AXR3s8Nq5qvt6C573uFTDPIYzJemWON0QE=
 github.com/micro/mdns v0.3.0/go.mod h1:KJ0dW7KmicXU2BV++qkLlmHYcVv7/hHnbtguSWt9Aoc=
 github.com/micro/protoc-gen-micro v1.0.0/go.mod h1:C8ij4DJhapBmypcT00AXdb0cZ675/3PqUO02buWWqbE=

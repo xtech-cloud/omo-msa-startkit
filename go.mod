@@ -7,4 +7,5 @@ require (
 	github.com/micro/go-micro/v2 v2.1.2
 	github.com/micro/go-plugins/config/source/consul/v2 v2.0.3
 	github.com/micro/go-plugins/registry/consul/v2 v2.0.3
+	github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3
 )

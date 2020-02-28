@@ -1,4 +1,4 @@
-./omo-msa-*
+omo-msa-*
 # Binaries for programs and plugins
 *.exe
 *.exe~
