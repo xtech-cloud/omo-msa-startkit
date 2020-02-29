@@ -299,6 +299,12 @@ github.com/micro/go-plugins/config/source/consul/v2 v2.0.3 h1:hUzNsYrDmZ4i4ua7y/
 github.com/micro/go-plugins/config/source/consul/v2 v2.0.3/go.mod h1:nTuPTtkEpHVufMbiQFnO7enKwkNt6lI8AebeohBcawo=
 github.com/micro/go-plugins/registry/consul/v2 v2.0.3 h1:gdiPbrMLS7kRbUx0/Mk5bsWjVBB6k35zAAbySiO0mgQ=
 github.com/micro/go-plugins/registry/consul/v2 v2.0.3/go.mod h1:ZffsiTaaplO3k0PkaZS5EQFg5rDLiJvYEuiob0g9jFU=
+github.com/micro/go-plugins/registry/etcd v0.0.0-20200119172437-4fe21aa238fd h1:ZBwRuDGymfMFL6hoPOw4jVIZ/kNyygP9WEnT8xMWrCY=
+github.com/micro/go-plugins/registry/etcd/v2 v2.0.3 h1:WtRCF18XirDNnFJ4wUI3YjF7NDHircpr3DObOQzfKqI=
+github.com/micro/go-plugins/registry/etcd/v2 v2.0.3/go.mod h1:UJhPH2dXyrUcuZKt0qsmxSWjPUUF0T/QiXQktxSHhHo=
+github.com/micro/go-plugins/registry/etcdv3 v0.0.0-20200119172437-4fe21aa238fd h1:oTqvYym0IwWVtewAECorh11cgymZb9AFR7xfdI93waQ=
+github.com/micro/go-plugins/registry/etcdv3/v2 v2.0.3 h1:S0MHxseeB1H+cp0fSD3GHsPAfKUsCNPGAt/6htHmM0I=
+github.com/micro/go-plugins/registry/etcdv3/v2 v2.0.3/go.mod h1:3bgaCsCg5BXjFUOHBOiSemE5cCTQtoXRb2fpsTixsw0=
 github.com/micro/go-plugins/registry/kubernetes v0.0.0-20200119172437-4fe21aa238fd h1:FrlK4kIbFDRyROigjF2Uhn6kN2zIzKNQcRucTrq+Yfg=
 github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3 h1:HgEZ+yjB0dr1kdHUdA9vQUyywS0YzQof4MQ6YHoSV9Q=
 github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3/go.mod h1:YTQuE9TH/r5+CJBtKmCVdUQBaFGOTpqc6S4ETu1mP7A=

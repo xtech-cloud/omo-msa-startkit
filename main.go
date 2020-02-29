@@ -3,9 +3,7 @@ package main
 import (
 	"omo-msa-startkit/config"
 	"omo-msa-startkit/handler"
-
-	_ "github.com/micro/go-plugins/registry/consul/v2"
-	_ "github.com/micro/go-plugins/registry/kubernetes/v2"
+	"time"
 
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/util/log"
@@ -20,6 +18,8 @@ func main() {
 	service := micro.NewService(
 		micro.Name("omo.msa.startkit"),
 		micro.Version("latest"),
+		micro.RegisterTTL(time.Second*15),
+		micro.RegisterInterval(time.Second*10),
 	)
 
 	// Initialise service

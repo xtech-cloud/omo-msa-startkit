@@ -10,7 +10,7 @@ build: proto
 
 .PHONY: test
 test:
-	micro call omo.msa.startkit StartKit.Call '{"name":"John"}'
+	MICRO_REGISTRY=consul micro call omo.msa.startkit StartKit.Call '{"name":"John"}'
 
 .PHONY: docker
 docker:
