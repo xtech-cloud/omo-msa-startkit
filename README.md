@@ -31,7 +31,7 @@ This is the Micro Service Agent
     {	
         "source": "consul",
         "prefix": "/omo/msa/config",
-        "key": "default.yaml"
+        "key": "default.yaml",
         "address": [
             "127.0.0.1:8500",
         ]
