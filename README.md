@@ -33,9 +33,7 @@ This is the Micro Service Agent
         "prefix": "/omo/msa/config",
         "key": "default.yaml"
         "address": [
-            "10.1.1.1:8500",
-            "10.1.1.2:8500",
-            "10.1.1.3:8500",
+            "127.0.0.1:8500",
         ]
     }	
     ```
@@ -146,13 +144,19 @@ A Makefile is included for convenience
 
     run msa
     ```
-    ~# ./omo-msa-startkit
+    ~# ./bin/omo-msa-startkit
     ```
 
 - 测试
 
+    单次调用服务
+    ```bash
+    ~# make call
     ```
-    ~# make test
+
+    循环调用服务
+    ```bash
+    ~# make tcall
     ```
 
 

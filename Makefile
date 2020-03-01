@@ -6,11 +6,16 @@ proto:
 .PHONY: build
 build: proto
 
-	go build 
+	go build -o ./bin/
 
-.PHONY: test
-test:
+.PHONY: call
+call:
 	MICRO_REGISTRY=consul micro call omo.msa.startkit StartKit.Call '{"name":"John"}'
+
+.PHONY: tcall
+tcall:
+	go build -o ./bin/ ./client
+	./bin/client
 
 .PHONY: docker
 docker:

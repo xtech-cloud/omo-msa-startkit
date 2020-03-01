@@ -8,7 +8,7 @@ import (
 	"omo-msa-startkit/config"
 	msa "omo-msa-startkit/proto/msa"
 
-	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/client"
 	_ "github.com/micro/go-plugins/registry/consul/v2"
 	_ "github.com/micro/go-plugins/registry/etcdv3/v2"
@@ -17,19 +17,15 @@ import (
 func main() {
 	config.Setup()
 	service := micro.NewService()
+	service.Init()
 
-	/*
-		// parse command line flags
-		service.Init()
-
-		// Use the generated client stub
-		cl := msa.NewStartKitService("omo.msa.startkit", service.Client())
-	*/
-
-	cli := client.NewClient(
+	cli := service.Client()
+	cli.Init(
+		client.Retries(3),
+		client.RequestTimeout(time.Second*1),
 		client.Retry(func(_ctx context.Context, _req client.Request, _retryCount int, _err error) (bool, error) {
 			if nil != _err {
-				fmt.Println("[ERR] retry %d, reason is %v", _retryCount, _err)
+				fmt.Println(fmt.Sprintf("%v | [ERR] retry %d, reason is %v\n\r", time.Now().String(), _retryCount, _err))
 				return true, nil
 			}
 			return false, nil
@@ -38,16 +34,16 @@ func main() {
 
 	startkit := msa.NewStartKitService("omo.msa.startkit", cli)
 
-	for range time.Tick(3 * time.Second) {
+	for range time.Tick(4 * time.Second) {
 		fmt.Println("----------------------------------------------------------")
 		// Make request
 		rsp, err := startkit.Call(context.Background(), &msa.Request{
-			Name: "John " + time.Now().String(),
+			Name: time.Now().String() + " | MSA-StartKit",
 		})
 		if err != nil {
 			fmt.Println(err)
-			return
+		} else {
+			fmt.Println(rsp.Msg)
 		}
-		fmt.Println(rsp.Msg)
 	}
 }

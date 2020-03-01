@@ -13,7 +13,7 @@ type StartKit struct{}
 // Call is a single request handler called via client.Call or the generated client code
 func (this *StartKit) Call(_ctx context.Context, _req *msa.Request, _rsp *msa.Response) error {
 	log.Log("Received StartKit.Call request")
-	_rsp.Msg = "Hello " + _req.Name
+	_rsp.Msg = _req.Name
 	return nil
 }
 
