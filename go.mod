@@ -11,4 +11,5 @@ require (
 	github.com/micro/go-plugins/registry/etcd/v2 v2.0.3
 	github.com/micro/go-plugins/registry/etcdv3/v2 v2.0.3
 	github.com/micro/go-plugins/registry/kubernetes/v2 v2.0.3
+	gopkg.in/yaml.v2 v2.2.2
 )

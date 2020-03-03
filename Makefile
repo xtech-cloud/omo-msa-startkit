@@ -5,7 +5,6 @@ proto:
 
 .PHONY: build
 build: proto
-
 	go build -o ./bin/
 
 .PHONY: call
