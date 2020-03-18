@@ -179,7 +179,7 @@ func Setup() {
 	}
 
 	if "debug" == mode {
-		logger.Warn("Using \"MSA_DEBUG_LOG_LEVEL\" to switch log's level in \"Debug\" mode.")
+		logger.Warn("Using \"MSA_DEBUG_LOG_LEVEL\" to switch log's level in \"debug\" mode.")
 		logger.Warn("- using env:	export MSA_DEBUG_LOG_LEVEL=debug")
 		debugLogLevel := os.Getenv("MSA_DEBUG_LOG_LEVEL")
 		if "" == debugLogLevel {
@@ -187,7 +187,7 @@ func Setup() {
 		}
 		level, _ = logger.GetLevel(debugLogLevel)
 	}
-	logger.Infof("the level of log is %v", Schema.Logger.Level)
+	logger.Infof("level is %v now", level)
 	logger.Init(
 		logger.WithLevel(level),
 	)
