@@ -17,7 +17,7 @@ This is the Micro Service Agent
     服务注册的地址,默认值为`127.0.0.1:8500`
 
 - MSA_CONFIG_DEFINE
-    配置定义，默认值使用文件
+    文件的配置
     ```json
     {	
         "source": "file",
@@ -33,7 +33,7 @@ This is the Micro Service Agent
         "prefix": "/omo/msa/config",
         "key": "default.yaml",
         "address": [
-            "127.0.0.1:8500",
+            "127.0.0.1:8500"
         ]
     }	
     ```

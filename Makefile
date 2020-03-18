@@ -1,11 +1,14 @@
+.PHONY: build
+build: proto
+	go build -o ./bin/
 
 .PHONY: proto
 proto:
 	protoc --proto_path=. --micro_out=. --go_out=. proto/msa/msa.proto
 
-.PHONY: build
-build: proto
-	go build -o ./bin/
+.PHONY: run
+run:
+	./bin/omo-msa-startkit
 
 .PHONY: call
 call:

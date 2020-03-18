@@ -12,6 +12,7 @@ import (
 	"github.com/micro/go-micro/v2/config/source/memory"
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-plugins/config/source/consul/v2"
+	"github.com/micro/go-plugins/logger/zerolog/v2"
 	goYAML "gopkg.in/yaml.v2"
 )
 
@@ -111,12 +112,32 @@ func mergeEtcd(_config config.Config) {
 }
 
 func Setup() {
-	setupEnvironment()
-
+	mode := os.Getenv("MSA_MODE")
+	if "" == mode {
+		mode = "debug"
+	}
 	conf, err := config.NewConfig()
 	if nil != err {
 		panic(err)
 	}
+
+	if "debug" == mode {
+		logger.DefaultLogger = zerolog.NewLogger(
+			logger.WithOutput(os.Stdout),
+			logger.WithLevel(logger.TraceLevel),
+			zerolog.WithDevelopmentMode(),
+		)
+		logger.Warn("Running in \"debug\" mode. Switch to \"release\" mode in production.")
+		logger.Warn("- using env:	export MSA_MODE=release")
+	} else {
+		logger.DefaultLogger = zerolog.NewLogger(
+			logger.WithOutput(os.Stdout),
+			logger.WithLevel(logger.TraceLevel),
+			zerolog.WithProductionMode(),
+		)
+	}
+
+	setupEnvironment()
 
 	// load default config
 	logger.Infof("default config is: \n\r%v", defaultYAML)
@@ -141,4 +162,13 @@ func Setup() {
 	} else {
 		logger.Infof("current config is: \n\r%v", string(ycd))
 	}
+
+	level, err := logger.GetLevel(Schema.Logger.Level)
+	if nil != err {
+		logger.Warnf("the level %v is invalid, just use info level", Schema.Logger.Level)
+		level = logger.InfoLevel
+	}
+	logger.Init(
+		logger.WithLevel(level),
+	)
 }

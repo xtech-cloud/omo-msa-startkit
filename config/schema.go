@@ -6,6 +6,11 @@ type Service_ struct {
 	Address  string `yaml:address`
 }
 
+type Logger_ struct {
+	Level string `yaml:level`
+}
+
 type ConfigSchema_ struct {
 	Service Service_ `yaml:service`
+	Logger  Logger_  `yaml:logger`
 }
