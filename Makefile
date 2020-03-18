@@ -1,6 +1,17 @@
+APP_NAME := omo-msa-startkit
+BUILD_VERSION   := $(shell git tag --contains)
+BUILD_TIME      := $(shell date "+%F %T")
+COMMIT_SHA1     := $(shell git rev-parse HEAD )
+
 .PHONY: build
 build: proto
-	go build -o ./bin/
+	go build -ldflags \
+		"\
+		-X 'main.BuildVersion=${BUILD_VERSION}' \
+		-X 'main.BuildTime=${BUILD_TIME}' \
+		-X 'main.CommitID=${COMMIT_SHA1}' \
+		"\
+		-o ./bin/${APP_NAME}
 
 .PHONY: proto
 proto:
@@ -8,7 +19,7 @@ proto:
 
 .PHONY: run
 run:
-	./bin/omo-msa-startkit
+	./bin/${APP_NAME}
 
 .PHONY: call
 call:
@@ -18,6 +29,10 @@ call:
 tcall:
 	go build -o ./bin/ ./client
 	./bin/client
+
+.PHONY: tar
+tar:
+	tar -zcf ${APP_NAME}-${BUILD_VERSION}.tar.gz ./bin/
 
 .PHONY: docker
 docker:

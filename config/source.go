@@ -12,7 +12,8 @@ import (
 	"github.com/micro/go-micro/v2/config/source/memory"
 	"github.com/micro/go-micro/v2/logger"
 	"github.com/micro/go-plugins/config/source/consul/v2"
-	"github.com/micro/go-plugins/logger/zerolog/v2"
+	logrusPlugin "github.com/micro/go-plugins/logger/logrus/v2"
+	"github.com/sirupsen/logrus"
 	goYAML "gopkg.in/yaml.v2"
 )
 
@@ -116,31 +117,39 @@ func Setup() {
 	if "" == mode {
 		mode = "debug"
 	}
+
+	// initialize logger
+	if "debug" == mode {
+		logger.DefaultLogger = logrusPlugin.NewLogger(
+			logger.WithOutput(os.Stdout),
+			logger.WithLevel(logger.TraceLevel),
+			logrusPlugin.WithTextTextFormatter(new(logrus.TextFormatter)),
+		)
+		logger.Info("-------------------------------------------------------------")
+		logger.Info("- Micro Service Agent -> Setup")
+		logger.Info("-------------------------------------------------------------")
+		logger.Warn("Running in \"debug\" mode. Switch to \"release\" mode in production.")
+		logger.Warn("- using env:	export MSA_MODE=release")
+	} else {
+		logger.DefaultLogger = logrusPlugin.NewLogger(
+			logger.WithOutput(os.Stdout),
+			logger.WithLevel(logger.TraceLevel),
+			logrusPlugin.WithJSONFormatter(new(logrus.JSONFormatter)),
+		)
+		logger.Info("-------------------------------------------------------------")
+		logger.Info("- Micro Service Agent -> Setup")
+		logger.Info("-------------------------------------------------------------")
+	}
+
 	conf, err := config.NewConfig()
 	if nil != err {
 		panic(err)
 	}
 
-	if "debug" == mode {
-		logger.DefaultLogger = zerolog.NewLogger(
-			logger.WithOutput(os.Stdout),
-			logger.WithLevel(logger.TraceLevel),
-			zerolog.WithDevelopmentMode(),
-		)
-		logger.Warn("Running in \"debug\" mode. Switch to \"release\" mode in production.")
-		logger.Warn("- using env:	export MSA_MODE=release")
-	} else {
-		logger.DefaultLogger = zerolog.NewLogger(
-			logger.WithOutput(os.Stdout),
-			logger.WithLevel(logger.TraceLevel),
-			zerolog.WithProductionMode(),
-		)
-	}
-
 	setupEnvironment()
 
 	// load default config
-	logger.Infof("default config is: \n\r%v", defaultYAML)
+	logger.Tracef("default config is: \n\r%v", defaultYAML)
 	memorySource := memory.NewSource(
 		memory.WithYAML([]byte(defaultYAML)),
 	)
@@ -160,7 +169,7 @@ func Setup() {
 	if nil != err {
 		logger.Error(err)
 	} else {
-		logger.Infof("current config is: \n\r%v", string(ycd))
+		logger.Tracef("current config is: \n\r%v", string(ycd))
 	}
 
 	level, err := logger.GetLevel(Schema.Logger.Level)
@@ -168,7 +177,19 @@ func Setup() {
 		logger.Warnf("the level %v is invalid, just use info level", Schema.Logger.Level)
 		level = logger.InfoLevel
 	}
+
+	if "debug" == mode {
+		logger.Warn("Using \"MSA_DEBUG_LOG_LEVEL\" to switch log's level in \"Debug\" mode.")
+		logger.Warn("- using env:	export MSA_DEBUG_LOG_LEVEL=debug")
+		debugLogLevel := os.Getenv("MSA_DEBUG_LOG_LEVEL")
+		if "" == debugLogLevel {
+			debugLogLevel = "trace"
+		}
+		level, _ = logger.GetLevel(debugLogLevel)
+	}
+	logger.Infof("the level of log is %v", Schema.Logger.Level)
 	logger.Init(
 		logger.WithLevel(level),
 	)
+
 }
