@@ -30,9 +30,10 @@ tcall:
 	go build -o ./bin/ ./client
 	./bin/client
 
-.PHONY: tar
-tar:
-	tar -zcf ${APP_NAME}-${BUILD_VERSION}.tar.gz ./bin/
+.PHONY: dist
+dist:
+	mkdir dist
+	tar -zcf dist/${APP_NAME}-${BUILD_VERSION}.tar.gz ./bin/${APP_NAME}
 
 .PHONY: docker
 docker:
