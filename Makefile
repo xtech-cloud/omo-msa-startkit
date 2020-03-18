@@ -15,7 +15,7 @@ build: proto
 
 .PHONY: proto
 proto:
-	protoc --proto_path=. --micro_out=. --go_out=. proto/msa/msa.proto
+	protoc --proto_path=. --micro_out=. --go_out=. proto/startkit/echo.proto
 
 .PHONY: run
 run:
@@ -23,12 +23,11 @@ run:
 
 .PHONY: call
 call:
-	MICRO_REGISTRY=consul micro call omo.msa.startkit StartKit.Call '{"name":"John"}'
+	MICRO_REGISTRY=consul micro call omo.msa.startkit Echo.Call '{"name":"John"}'
 
-.PHONY: tcall
-tcall:
-	go build -o ./bin/ ./client
-	./bin/client
+.PHONY: tester
+tester:
+	go build -o ./bin/ ./tester
 
 .PHONY: dist
 dist:

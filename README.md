@@ -132,7 +132,7 @@ A Makefile is included for convenience
     ```
 
     ```
-    ~# make build
+    ~# make 
     ```
 
 - 运行服务
@@ -144,10 +144,11 @@ A Makefile is included for convenience
 
     run msa
     ```
-    ~# ./bin/omo-msa-startkit
+    ~# make run
     ```
 
 - 测试
+
 
     单次调用服务
     ```bash
@@ -156,9 +157,21 @@ A Makefile is included for convenience
 
     循环调用服务
     ```bash
-    ~# make tcall
+    ~# make tester
+    ~# ./bin/tester
     ```
 
+- HTTP 调用
+
+    需要先开启API网关
+    ```bash
+    ~#  micro api --namespace=omo.msa
+    ```
+
+    使用POST访问
+    ```bash
+    curl -H 'Content-Type: application/json' -d '{"name": "Asim"}' http://localhost:8080/startkit/Echo/Call
+    ```
 
 - 构建Docker镜像
 

@@ -13,7 +13,7 @@ import (
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/logger"
 
-	msa "omo-msa-startkit/proto/msa"
+	proto "omo-msa-startkit/proto/startkit"
 )
 
 func main() {
@@ -32,7 +32,7 @@ func main() {
 	service.Init()
 
 	// Register Handler
-	msa.RegisterStartKitHandler(service.Server(), new(handler.StartKit))
+	proto.RegisterEchoHandler(service.Server(), new(handler.Echo))
 
 	// Register Struct as Subscriber
 	//micro.RegisterSubscriber("omo.msa.startkit", service.Server(), new(subscriber.StartKit))
