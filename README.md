@@ -165,11 +165,12 @@ A Makefile is included for convenience
 
     需要先开启API网关
     ```bash
-    ~#  micro api --namespace=omo.msa
+    ~#  MICRO_REGISTRY=consul micro api --namespace=omo.msa
     ```
 
     使用POST访问
     ```bash
+    curl http://localhost:8080/startkit/Echo/Call?name=Asim
     curl -H 'Content-Type: application/json' -d '{"name": "Asim"}' http://localhost:8080/startkit/Echo/Call
     ```
 
