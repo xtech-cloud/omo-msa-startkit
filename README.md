@@ -97,6 +97,18 @@ This is the Micro Service Agent
     _ "github.com/micro/go-plugins/registry/etcdv3/v2"
     ```
 
+    添加以下代码到internal/handler/meta.go中
+    ```go
+    func (m *metaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+        //支持跨域
+        helper.ServeCORS(w, r)
+        if r.Method == "OPTIONS" {
+            return
+        }
+        ...
+    }
+    ```
+
     ```
     ~# cd micro
     ~# go install
