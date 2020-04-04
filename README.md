@@ -40,6 +40,7 @@ This is the Micro Service Agent
 
 ## 依赖
 
+### Alpine
 `For Alpine v3.11`
 
 - 环境配置
@@ -52,6 +53,11 @@ This is the Micro Service Agent
 
     ```bash
     ~# apk add go --no-cache --repository=https://mirrors.aliyun.com/alpine/v3.11/community/
+    ```
+    
+    在/etc/profile中加入一行
+    ```bash
+    export GOPROXY=https://goproxy.io,direct
     ```
 
 - 安装Protobuf
@@ -82,6 +88,10 @@ This is the Micro Service Agent
     ~# export GOPROXY=https://mirrors.aliyun.com/goproxy/
     ~# go get github.com/micro/protoc-gen-micro
     ~# cp /root/go/bin/protoc-gen-micro /usr/local/bin/
+    ```
+- 安装grpc-java
+    ```bash
+    ~# apk add --no-cache grpc-java --repository=http://mirrors.aliyun.com/alpine/edge/testing
     ```
 
 - 安装Micro
@@ -131,6 +141,21 @@ This is the Micro Service Agent
     ~# cp ./bin/etcd /usr/local/bin/
     ~# cp ./bin/etcdctl /usr/local/bin/
     ```
+
+### Windows
+
+- 安装nuget
+    这一步主要用于
+
+    下载[NuGet](https://www.nuget.org/downloads)
+
+    在命令行中运行以下命令
+
+    ```bash
+    > .\nuget.exe install Grpc.Tools -Version 2.27.0
+    ```
+
+    完成后将Grpc.Tools.2.27.0\tools\windows_x64\目录下的protoc.exe和grpc_csharp_plugin.exe拷贝到c:\_wsl目录下
 
 ## 用法
 
