@@ -63,15 +63,7 @@ This is the Micro Service Agent
 - 安装Protobuf
 
     ```bash
-    ~# cd ~
-    ~# git clone --branch v3.11.4 --depth=1 https://github.com/protocolbuffers/protobuf
-    ~# cd protobuf
-    ~# git submodule update --init --recursive
-    ~# ./autogen.sh
-    ~# ./configure
-    ~# make
-    ~# make install
-    ~# ldconfig
+    ~# apk add --no-cache protoc --repository=http://mirrors.aliyun.com/alpine/v3.11/main/
     ```
 
 - 安装protoc-gen-go

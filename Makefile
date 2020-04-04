@@ -18,7 +18,7 @@ proto:
 	protoc --proto_path=. --micro_out=. --go_out=. proto/startkit/echo.proto
 	/mnt/c/_wsl/protoc.exe --proto_path=./ --csharp_out=./proto/startkit --grpc_out=./proto/startkit --plugin=protoc-gen-grpc=c:/_wsl/grpc_csharp_plugin.exe proto/startkit/echo.proto
 	protoc --proto_path=./ --java_out=./proto/startkit --plugin=protoc-gen-grpc-java=/usr/bin/protoc-gen-grpc-java proto/startkit/echo.proto
-	protoc --proto_path=./ --grpc-java_out=nano:./proto/startkit --plugin=protoc-gen-grpc-java=/usr/bin/protoc-gen-grpc-java proto/startkit/echo.proto
+	protoc --proto_path=./ --grpc-java_out=./proto/startkit --plugin=protoc-gen-grpc-java=/usr/bin/protoc-gen-grpc-java proto/startkit/echo.proto
 	mv proto/startkit/omo/msa/startkit/* proto/startkit/
 	rm -rf proto/startkit/omo
 
