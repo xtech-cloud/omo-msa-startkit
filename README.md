@@ -149,6 +149,9 @@ This is the Micro Service Agent
 
     完成后将Grpc.Tools.2.27.0\tools\windows_x64\目录下的protoc.exe和grpc_csharp_plugin.exe拷贝到c:\_wsl目录下
 
+- 安装protoc-gen-javalite
+    下载https://repo1.maven.org/maven2/com/google/protobuf/protoc-gen-javalite/3.0.0/protoc-gen-javalite-3.0.0-windows-x86_64.exe，拷贝到c:\_wsl目录下，并改名为protoc-gen-javalite.exe
+
 ## 用法
 
 A Makefile is included for convenience
