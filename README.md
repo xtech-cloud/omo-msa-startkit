@@ -151,6 +151,8 @@ This is the Micro Service Agent
 
 - 安装protoc-gen-javalite
     下载https://repo1.maven.org/maven2/com/google/protobuf/protoc-gen-javalite/3.0.0/protoc-gen-javalite-3.0.0-windows-x86_64.exe，拷贝到c:\_wsl目录下，并改名为protoc-gen-javalite.exe
+- 安装protoc-gen-web
+    从https://github.com/grpc/grpc-web/releases下载protoc-gen-grpc-web-1.0.7-windows-x86_64.exe，拷贝到c:\_wsl目录下，并改名为protoc-gen-grpc-web.exe
 
 ## 用法
 
