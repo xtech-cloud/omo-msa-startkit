@@ -199,13 +199,18 @@ A Makefile is included for convenience
 
     需要先开启API网关
     ```bash
-    ~#  MICRO_REGISTRY=consul micro api --namespace=omo.msa
+    ~#  MICRO_REGISTRY=consul micro api --namespace=omo
     ```
 
     使用POST访问
     ```bash
-    curl http://localhost:8080/startkit/Echo/Call?name=Asim
+    curl http://localhost:8080/msa/startkit/Echo/Call?name=Asim
     curl -H 'Content-Type: application/json' -d '{"name": "Asim"}' http://localhost:8080/startkit/Echo/Call
+    ```
+
+- WEB界面
+    ```bash
+    ~#  MICRO_REGISTRY=consul micro web --namespace=omo
     ```
 
 - 构建Docker镜像
