@@ -111,6 +111,33 @@ This is the Micro Service Agent
     }
     ```
 
+    修改internal/helper/helper.go中的以下代码
+    ```go
+    func ServeCORS(w http.ResponseWriter, r *http.Request) {                        
+        set := func(w http.ResponseWriter, k, v string) {                           
+            if v := w.Header().Get(k); len(v) > 0 {                                                                
+                return                                                                                             
+            }                                                                                                                                                                                                     
+            w.Header().Set(k, v)                                                                                   
+        }                                                                                                          
+        
+        if origin := r.Header.Get("Origin"); len(origin) > 0 {                      
+            set(w, "Access-Control-Allow-Origin", origin)                           
+        } else {                                                                                                   
+            set(w, "Access-Control-Allow-Origin", "*")                              
+        }                                                                                                          
+        
+        headers := "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"
+       
+        if reqHeaders := r.Header.Get("Access-Control-Request-Headers"); len(reqHeaders) > 0 {
+            headers = headers + "," + reqHeaders                                                                   
+        }                                                                                                          
+        
+        set(w, "Access-Control-Allow-Methods", "POST, PATCH, GET, OPTIONS, PUT, DELETE")
+        set(w, "Access-Control-Allow-Headers", headers)                             
+    }
+    ```
+
     ```
     ~# cd micro
     ~# go install
