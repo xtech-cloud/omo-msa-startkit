@@ -2,6 +2,7 @@ package config
 
 const defaultYAML string = `
 service:
+    name: omo.msa.startkit
     address: :7079
     ttl: 15
     interval: 10

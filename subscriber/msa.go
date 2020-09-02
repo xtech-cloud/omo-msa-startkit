@@ -3,7 +3,7 @@ package subscriber
 import (
 	"context"
 
-	"github.com/micro/go-micro/v2/util/log"
+	"github.com/micro/go-micro/v2/logger"
 
 	msa "omo-msa-startkit/proto/msa"
 )
@@ -11,11 +11,11 @@ import (
 type StartKit struct{}
 
 func (this *StartKit) Handle(_ctx context.Context, _msg *msa.Message) error {
-	log.Log("Handler Received message: ", _msg.Say)
+	logger.Infof("Handler Received message: %v", _msg.Say)
 	return nil
 }
 
 func Handler(_ctx context.Context, _msg *msa.Message) error {
-	log.Log("Function Received message: ", _msg.Say)
+	logger.Info("Function Received message: %v", _msg.Say)
 	return nil
 }
