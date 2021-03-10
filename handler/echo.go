@@ -14,7 +14,7 @@ type Echo struct{}
 // Call is a single request handler called via client.Call or the generated client code
 func (this *Echo) Call(_ctx context.Context, _req *proto.Request, _rsp *proto.Response) error {
 	logger.Infof("Received Echo.Call request: %v", _req)
-	_rsp.Msg = _req.Name
+	_rsp.Msg = _req.Msg
 	return nil
 }
 

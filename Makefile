@@ -27,13 +27,21 @@ proto:
 run:
 	./bin/${APP_NAME}
 
+.PHONY: run-fs
+run-fs:
+	MSA_CONFIG_DEFINE='{"source":"file","prefix":"/etc/msa/","key":"startkit.yml"}' ./bin/${APP_NAME}
+
+.PHONY: run-cs
+run-cs:
+	MSA_CONFIG_DEFINE='{"source":"consul","prefix":"/omo/msa/config","key":"startkit.yml","address":["127.0.0.1:8500"]}' ./bin/${APP_NAME}
+
 .PHONY: call
 call:
-	MICRO_REGISTRY=consul micro call omo.msa.startkit Echo.Call '{"name":"John"}'
+	MICRO_REGISTRY=consul micro call omo.api.msa.startkit Echo.Call '{"msg":"John"}'
 
 .PHONY: post
 post:
-	curl -X POST -d '{"name":"John"}' 127.0.0.1:8080/msa/startkit/Echo/Call
+	curl -X POST -d '{"msg":"John"}' 127.0.0.1:8080/msa/startkit/Echo/Call
 
 .PHONY: tester
 tester:

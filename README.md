@@ -41,7 +41,7 @@ This is the Micro Service Agent
 ## 依赖
 
 ### Alpine
-`For Alpine v3.11`
+`For Alpine v3.12`
 
 - 环境配置
 
@@ -52,7 +52,7 @@ This is the Micro Service Agent
 - 安装Go
 
     ```bash
-    ~# apk add go --no-cache --repository=https://mirrors.aliyun.com/alpine/v3.11/community/
+    ~# apk add go --no-cache --repository=https://mirrors.aliyun.com/alpine/v3.12/community/
     ```
     
     在/etc/profile中加入一行
@@ -63,7 +63,7 @@ This is the Micro Service Agent
 - 安装Protobuf
 
     ```bash
-    ~# apk add --no-cache protoc --repository=http://mirrors.aliyun.com/alpine/v3.11/main/
+    ~# apk add --no-cache protoc --repository=http://mirrors.aliyun.com/alpine/v3.12/main/
     ```
 
 - 安装protoc-gen-go
@@ -90,52 +90,13 @@ This is the Micro Service Agent
 
     ```bash
     ~# export GOPROXY=https://mirrors.aliyun.com/goproxy/
-    ~# git clone --branch=v2.1.1 --depth=1 https://github.com/micro/micro
+    ~# git clone --branch=v2.9.1 --depth=1 https://github.com/micro/micro
     ```
 
     将以下两行代码加入到main.go中
     ```go
     _ "github.com/micro/go-plugins/registry/consul/v2"
     _ "github.com/micro/go-plugins/registry/etcdv3/v2"
-    ```
-
-    添加以下代码到internal/handler/meta.go中
-    ```go
-    func (m *metaHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-        //支持跨域
-        helper.ServeCORS(w, r)
-        if r.Method == "OPTIONS" {
-            return
-        }
-        ...
-    }
-    ```
-
-    修改internal/helper/helper.go中的以下代码
-    ```go
-    func ServeCORS(w http.ResponseWriter, r *http.Request) {                        
-        set := func(w http.ResponseWriter, k, v string) {                           
-            if v := w.Header().Get(k); len(v) > 0 {                                                                
-                return                                                                                             
-            }                                                                                                                                                                                                     
-            w.Header().Set(k, v)                                                                                   
-        }                                                                                                          
-        
-        if origin := r.Header.Get("Origin"); len(origin) > 0 {                      
-            set(w, "Access-Control-Allow-Origin", origin)                           
-        } else {                                                                                                   
-            set(w, "Access-Control-Allow-Origin", "*")                              
-        }                                                                                                          
-        
-        headers := "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization"
-       
-        if reqHeaders := r.Header.Get("Access-Control-Request-Headers"); len(reqHeaders) > 0 {
-            headers = headers + "," + reqHeaders                                                                   
-        }                                                                                                          
-        
-        set(w, "Access-Control-Allow-Methods", "POST, PATCH, GET, OPTIONS, PUT, DELETE")
-        set(w, "Access-Control-Allow-Headers", headers)                             
-    }
     ```
 
     ```
@@ -147,7 +108,7 @@ This is the Micro Service Agent
 - 安装Consul
 
     ```bash
-    ~# apk add --no-cache consul --repository=http://mirrors.aliyun.com/alpine/edge/testing/
+    ~# apk add --no-cache consul --repository=http://mirrors.aliyun.com/alpine/edge/community/
     ```
 
 - 安装etcd 
@@ -226,18 +187,18 @@ A Makefile is included for convenience
 
     需要先开启API网关
     ```bash
-    ~#  MICRO_REGISTRY=consul micro api --namespace=omo
+    ~#  MICRO_REGISTRY=consul micro api --namespace=omo.api
     ```
 
     使用POST访问
     ```bash
-    curl http://localhost:8080/msa/startkit/Echo/Call?name=Asim
-    curl -H 'Content-Type: application/json' -d '{"name": "Asim"}' http://localhost:8080/startkit/Echo/Call
+    curl http://localhost:8080/msa/startkit/Echo/Call?msg=Asim
+    curl -H 'Content-Type: application/json' -d '{"msg": "Asim"}' http://localhost:8080/startkit/Echo/Call
     ```
 
 - WEB界面
     ```bash
-    ~#  MICRO_REGISTRY=consul micro web --namespace=omo
+    ~#  MICRO_REGISTRY=consul micro web --namespace=omo.api
     ```
 
 - 构建Docker镜像

@@ -66,6 +66,7 @@ func mergeFile(_config config.Config) {
 	err := _config.Load(fileSource)
 	if nil != err {
 		logger.Errorf("load config %v failed: %v", filepath, err)
+		panic("load config failed")
 	} else {
 		logger.Infof("load config %v success", filepath)
 		_config.Scan(&Schema)
@@ -74,6 +75,7 @@ func mergeFile(_config config.Config) {
 
 func mergeConsul(_config config.Config) {
 	consulKey := configDefine.Prefix + configDefine.Key
+	success := false
 	for _, addr := range configDefine.Address {
 		consulSource := consul.NewSource(
 			consul.WithAddress(addr),
@@ -84,16 +86,21 @@ func mergeConsul(_config config.Config) {
 		err := _config.Load(consulSource)
 		if nil == err {
 			logger.Infof("load config %v from %v success", consulKey, addr)
+			success = true
 			break
 		} else {
 			logger.Errorf("load config %v from %v failed: %v", consulKey, addr, err)
 		}
+	}
+	if !success {
+		panic("load config failed")
 	}
 	_config.Get(configDefine.Key).Scan(&Schema)
 }
 
 func mergeEtcd(_config config.Config) {
 	etcdKey := configDefine.Prefix + configDefine.Key
+	success := false
 	for _, addr := range configDefine.Address {
 		etcdSource := etcd.NewSource(
 			etcd.WithAddress(addr),
@@ -104,10 +111,14 @@ func mergeEtcd(_config config.Config) {
 		err := _config.Load(etcdSource)
 		if nil == err {
 			logger.Infof("load config %v from %v success", etcdKey, addr)
+			success = true
 			break
 		} else {
 			logger.Errorf("load config %v from %v failed: %v", etcdKey, addr, err)
 		}
+	}
+	if !success {
+		panic("load config failed")
 	}
 	_config.Get(configDefine.Key).Scan(&Schema)
 }
