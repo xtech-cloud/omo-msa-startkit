@@ -31,6 +31,10 @@ run:
 call:
 	MICRO_REGISTRY=consul micro call omo.msa.startkit Echo.Call '{"name":"John"}'
 
+.PHONY: post
+post:
+	curl -X POST -d '{"name":"John"}' 127.0.0.1:8080/msa/startkit/Echo/Call
+
 .PHONY: tester
 tester:
 	go build -o ./bin/ ./tester
