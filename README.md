@@ -90,7 +90,7 @@ This is the Micro Service Agent
 
     ```bash
     ~# export GOPROXY=https://mirrors.aliyun.com/goproxy/
-    ~# git clone --branch=v2.9.1 --depth=1 https://github.com/micro/micro
+    ~# git clone --branch=v2.9.3 --depth=1 https://github.com/micro/micro
     ```
 
     将以下两行代码加入到main.go中
