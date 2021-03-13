@@ -33,7 +33,7 @@ run-fs:
 
 .PHONY: run-cs
 run-cs:
-	MSA_CONFIG_DEFINE='{"source":"consul","prefix":"/omo/msa/config","key":"startkit.yml","address":["127.0.0.1:8500"]}' ./bin/${APP_NAME}
+	MSA_CONFIG_DEFINE='{"source":"consul","prefix":"/omo/msa/config","key":"startkit.yml"}' ./bin/${APP_NAME}
 
 .PHONY: call
 call:

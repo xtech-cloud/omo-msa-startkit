@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"fmt"
 	"os"
 
 	"github.com/micro/go-micro/v2/config"
@@ -18,10 +19,10 @@ import (
 )
 
 type ConfigDefine struct {
-	Source  string   `json:source`
-	Prefix  string   `json:prefix`
-	Key     string   `json:key`
-	Address []string `json:address`
+	Source  string `json:source`
+	Prefix  string `json:prefix`
+	Key     string `json:key`
+	Address string
 }
 
 var configDefine ConfigDefine
@@ -58,6 +59,7 @@ func setupEnvironment() {
 	if err != nil {
 		logger.Error(err)
 	}
+	configDefine.Address = registryAddress
 }
 
 func mergeFile(_config config.Config) {
@@ -67,8 +69,7 @@ func mergeFile(_config config.Config) {
 	)
 	err := _config.Load(fileSource)
 	if nil != err {
-		logger.Errorf("load config %v failed: %v", filepath, err)
-		panic("load config failed")
+		panic(fmt.Sprintf("load config %v failed: %v", filepath, err))
 	} else {
 		logger.Infof("load config %v success", filepath)
 		_config.Scan(&Schema)
@@ -77,50 +78,34 @@ func mergeFile(_config config.Config) {
 
 func mergeConsul(_config config.Config) {
 	consulKey := configDefine.Prefix + configDefine.Key
-	success := false
-	for _, addr := range configDefine.Address {
-		consulSource := consul.NewSource(
-			consul.WithAddress(addr),
-			consul.WithPrefix(configDefine.Prefix),
-			consul.StripPrefix(true),
-			source.WithEncoder(yaml.NewEncoder()),
-		)
-		err := _config.Load(consulSource)
-		if nil == err {
-			logger.Infof("load config %v from %v success", consulKey, addr)
-			success = true
-			break
-		} else {
-			logger.Errorf("load config %v from %v failed: %v", consulKey, addr, err)
-		}
-	}
-	if !success {
-		panic("load config failed")
+	consulSource := consul.NewSource(
+		consul.WithAddress(configDefine.Address),
+		consul.WithPrefix(configDefine.Prefix),
+		consul.StripPrefix(true),
+		source.WithEncoder(yaml.NewEncoder()),
+	)
+	err := _config.Load(consulSource)
+	if nil == err {
+		logger.Infof("load config %v success", consulKey)
+	} else {
+		panic(fmt.Sprintf("load config %v failed: %v", consulKey, err))
 	}
 	_config.Get(configDefine.Key).Scan(&Schema)
 }
 
 func mergeEtcd(_config config.Config) {
 	etcdKey := configDefine.Prefix + configDefine.Key
-	success := false
-	for _, addr := range configDefine.Address {
-		etcdSource := etcd.NewSource(
-			etcd.WithAddress(addr),
-			etcd.WithPrefix(configDefine.Prefix),
-			etcd.StripPrefix(true),
-			source.WithEncoder(yaml.NewEncoder()),
-		)
-		err := _config.Load(etcdSource)
-		if nil == err {
-			logger.Infof("load config %v from %v success", etcdKey, addr)
-			success = true
-			break
-		} else {
-			logger.Errorf("load config %v from %v failed: %v", etcdKey, addr, err)
-		}
-	}
-	if !success {
-		panic("load config failed")
+	etcdSource := etcd.NewSource(
+		etcd.WithAddress(configDefine.Address),
+		etcd.WithPrefix(configDefine.Prefix),
+		etcd.StripPrefix(true),
+		source.WithEncoder(yaml.NewEncoder()),
+	)
+	err := _config.Load(etcdSource)
+	if nil == err {
+		logger.Infof("load config %v success", etcdKey)
+	} else {
+		panic(fmt.Sprintf("load config %v failed: %v", etcdKey, err))
 	}
 	_config.Get(configDefine.Key).Scan(&Schema)
 }
