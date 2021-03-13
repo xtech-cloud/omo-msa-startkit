@@ -34,13 +34,15 @@ func setupEnvironment() {
 	if "" == registryPlugin {
 		registryPlugin = "consul"
 	}
+	logger.Infof("MICRO_REGISTRY is %v", registryPlugin)
 	os.Setenv("MICRO_REGISTRY", registryPlugin)
 
 	//registry address
 	registryAddress := os.Getenv("MSA_REGISTRY_ADDRESS")
 	if "" == registryAddress {
-		registryPlugin = "127.0.0.1:8500"
+		registryAddress = "localhost:8500"
 	}
+	logger.Infof("MICRO_REGISTRY_ADDRESS is %v", registryAddress)
 	os.Setenv("MICRO_REGISTRY_ADDRESS", registryAddress)
 
 	//config
